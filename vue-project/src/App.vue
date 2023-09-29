@@ -7,6 +7,9 @@ import { RouterLink, RouterView } from 'vue-router'
     <header class="header">
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/movie">Films</RouterLink>
+        <RouterLink to="/actor">Acteurs</RouterLink>
+        <RouterLink to="/category">Categories</RouterLink>
       </nav>
     </header>
   
@@ -14,13 +17,19 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .container-primary {
   width: 100%;
   height: 100%;
 
   .header {
     margin-bottom: 200px;
+
+    nav {
+      a {
+        margin-right: 20px;
+      }
+    }
   }
 }
 
