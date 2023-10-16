@@ -23,7 +23,7 @@ onMounted(async () => {
             <p>Prénom: {{ actor.firstName }}</p>
             <p>Nom: {{ actor.lastName }}</p>
             <p>Films: <ul>
-                <li v-for="movie in actor.movies">
+                <li v-for="movie in actor.movies" :key="movie.id">
                     <RouterLink :to="{ name: 'movie-file', params: { id: movie.id } }">{{ movie.title }}</RouterLink>
                 </li>
             </ul></p>

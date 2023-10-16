@@ -22,7 +22,7 @@ onMounted(async () => {
         <div class="container-movie" v-if="category">
             <p>Nom: {{ category.name }}</p>
             <p>Films: <ul>
-                <li v-for="film in category.movies">
+                <li v-for="film in category.movies" :key="film.id">
                     <RouterLink :to="{ name: 'movie-file', params: { id: film.id } }">{{ film.title }}</RouterLink>
                 </li>
             </ul></p>

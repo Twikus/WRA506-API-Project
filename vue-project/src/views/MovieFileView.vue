@@ -18,12 +18,16 @@ function formatDate(date) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(date).toLocaleDateString('fr-FR', options);
 }
-    ;
+
+const updateMovie = () => {
+    
+}
 </script>
 
 <template>
     <div>
         <h1>Fiche du Film</h1>
+        <button @click="updateMovie">Modifier</button><br><br>
         <div class="container-movie" v-if="movie">
             <p>Catégorie:  <RouterLink :to="{ name: 'category-file', params: { id: movie.category.id } }">{{ movie.category.name }}</RouterLink></p>
             <br>
@@ -33,7 +37,7 @@ function formatDate(date) {
             <p>Durée: {{ movie.duration }} minutes</p>
             <br>
             <p>Acteurs: <ul>
-                <li v-for="actor in movie.actors">
+                <li v-for="actor in movie.actors" :key="actor.id">
                     <RouterLink :to="{ name: 'actor-file', params: { id: actor.id } }">{{ actor.firstName }} {{ actor.lastName }}</RouterLink>
                 </li>
             </ul></p>
