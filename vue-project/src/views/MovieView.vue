@@ -6,10 +6,37 @@ import MovieCard from '../components/MovieCard.vue';
 const movies = ref([]);
 const search = ref('');
 
+const currentPage = ref(1);
+const totalPages = ref(0);
+const itemsPerPage = 30;
+
 onMounted(async () => {
-    const response = await axios.get('https://localhost:8000/api/movies?page=1');
-    movies.value = response.data['hydra:member'];
+    await fetchMovies(currentPage.value);
 })
+
+const fetchMovies = async (page) => {
+    const response = await axios.get(`https://localhost:8000/api/movies?page=${page}`);
+    movies.value = response.data['hydra:member'];
+
+    // Pagination
+    const totalCount = response.data['hydra:totalItems'];
+    totalPages.value = Math.ceil(totalCount / itemsPerPage);
+    currentPage.value = page;
+}
+
+const nextPage = () => {
+    if (currentPage.value < totalPages.value) {
+        currentPage.value++;
+        fetchMovies(currentPage.value);
+    }
+}
+
+const previousPage = () => {
+    if (currentPage.value > 1) {
+        currentPage.value--;
+        fetchMovies(currentPage.value);
+    }
+}
 
 const moviesFiltered = computed(() => {
     return movies.value.filter((movie) => {
@@ -22,6 +49,11 @@ const moviesFiltered = computed(() => {
     <div class="container-list-movies">
         <h1>Liste des Films</h1>
         <input type="text" class="searchbar" v-model="search">
+        <div class="pagination">
+            <button @click="previousPage" :disabled="currentPage <= 1">Précédent</button>
+            <span>{{ currentPage }} / {{ totalPages }}</span>
+            <button @click="nextPage" :disabled="currentPage >= totalPages">Suivant</button>
+        </div>
         <div class="container-movies">
             <div v-if="!movies">Chargement en cours...</div>
             <MovieCard v-else v-for="movie in moviesFiltered" :key="movie.id" :movie="movie" class="movie"/>
