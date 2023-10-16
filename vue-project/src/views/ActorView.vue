@@ -22,25 +22,8 @@ onMounted(async () => {
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .container-list-actors {
     text-align: center;
-
-    .container-actors {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .actor {
-        width: 300px;
-        height: 300px;
-        border: 1px solid rgb(35, 35, 35);
-        background-color: rgb(35, 35, 35);
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
-        border-radius: 5px;
-        margin: 10px;
-        padding: 10px;
-    }
 }
 </style>

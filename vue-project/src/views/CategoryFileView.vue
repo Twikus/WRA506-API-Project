@@ -30,7 +30,7 @@ onMounted(async () => {
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
     .container-movies {
         display: flex;
         flex-wrap: wrap;
