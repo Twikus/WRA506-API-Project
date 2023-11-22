@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
-import MovieView from '../views/MovieView.vue'
-import MovieFileView from '../views/MovieFileView.vue'
-import ActorView from '../views/ActorView.vue'
-import ActorFileView from '../views/ActorFileView.vue'
-import CategoryView from '../views/CategoryView.vue'
-import CategoryFileView from '../views/CategoryFileView.vue'
+import MovieView from '../views/Movie/MovieView.vue'
+import MovieFileView from '../views/Movie/MovieFileView.vue'
+import ActorView from '../views/Actor/ActorView.vue'
+import ActorFileView from '../views/Actor/ActorFileView.vue'
+import CategoryView from '../views/Category/CategoryView.vue'
+import CategoryFileView from '../views/Category/CategoryFileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
