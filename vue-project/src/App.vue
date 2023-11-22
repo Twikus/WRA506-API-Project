@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 
-// récupère le token dans le local storage
 const token = localStorage.getItem('token')
 
-// déconnexion
 const logout = () => {
   localStorage.removeItem('token')
   location.href = '/login'
