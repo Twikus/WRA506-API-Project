@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 
@@ -8,8 +8,20 @@ const actor = ref()
 const $route = useRoute();
 const id = $route.params.id;
 
+const token = localStorage.getItem('token');
+
+onBeforeMount(() => {
+    if (!token) {
+        location.href = '/login'
+    }
+})
+
 onMounted(async () => {
-    const response = await axios.get(`https://localhost:8000/api/actors/${id}`);
+    const response = await axios.get(`https://localhost:8000/api/actors/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
     actor.value = response.data;
 
 })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, onBeforeMount, ref, computed } from 'vue'
 import axios from 'axios';
 import MovieCard from '../components/MovieCard.vue';
 
@@ -11,6 +11,12 @@ const totalPages = ref(0);
 const itemsPerPage = 30;
 
 const token = localStorage.getItem('token');
+
+onBeforeMount(() => {
+    if (!token) {
+        location.href = '/login'
+    }
+})
 
 onMounted(async () => {
     await fetchMovies(currentPage.value);
