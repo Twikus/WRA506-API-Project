@@ -1,15 +1,26 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+
+// récupère le token dans le local storage
+const token = localStorage.getItem('token')
+
+// déconnexion
+const logout = () => {
+  localStorage.removeItem('token')
+  location.href = '/login'
+}
 </script>
 
 <template>
   <div class="container-primary">
     <header class="header">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/movie">Films</RouterLink>
-        <RouterLink to="/actor">Acteurs</RouterLink>
-        <RouterLink to="/category">Categories</RouterLink>
+        <RouterLink to="/">Accueil</RouterLink>
+        <RouterLink to="/movie" v-if="token">Films</RouterLink>
+        <RouterLink to="/actor" v-if="token">Acteurs</RouterLink>
+        <RouterLink to="/category" v-if="token">Categories</RouterLink>
+        <RouterLink to="/login" v-if="!token">Connexion</RouterLink>
+        <a data-v-7a7a37b1 @click="logout" v-if="token">Déconnexion</a>
       </nav>
     </header>
   
@@ -28,6 +39,7 @@ import { RouterLink, RouterView } from 'vue-router'
     nav {
       a {
         margin-right: 20px;
+        cursor: pointer;
       }
     }
   }

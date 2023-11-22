@@ -10,12 +10,18 @@ const currentPage = ref(1);
 const totalPages = ref(0);
 const itemsPerPage = 30;
 
+const token = localStorage.getItem('token');
+
 onMounted(async () => {
     await fetchActors(currentPage.value);
 })
 
 const fetchActors = async (page) => {
-    const response = await axios.get(`https://localhost:8000/api/actors?page=${page}`);
+    const response = await axios.get(`https://localhost:8000/api/actors?page=${page}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
     actors.value = response.data['hydra:member'];
 
     // Pagination

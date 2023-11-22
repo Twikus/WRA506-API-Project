@@ -10,12 +10,18 @@ const currentPage = ref(1);
 const totalPages = ref(0);
 const itemsPerPage = 30;
 
+const token = localStorage.getItem('token');
+
 onMounted(async () => {
     await fetchCategories(currentPage.value);
 })
 
 const fetchCategories = async (page) => {
-    const response = await axios.get(`https://localhost:8000/api/categories?page=${page}`);
+    const response = await axios.get(`https://localhost:8000/api/categories?page=${page}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
     categories.value = response.data['hydra:member'];
 
     // Pagination

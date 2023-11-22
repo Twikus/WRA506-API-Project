@@ -7,8 +7,14 @@ import axios from 'axios';
 const movies = ref([]);
 const actors = ref([]);
 
+const token = localStorage.getItem('token');
+
 onMounted(async () => {
-    const responseMovies = await axios.get('https://localhost:8000/api/movies?page=1');
+    const responseMovies = await axios.get('https://localhost:8000/api/movies?page=1', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
     movies.value = responseMovies.data['hydra:member'].map((movie: any) => {
         return {
             id: movie.id,
@@ -22,7 +28,11 @@ onMounted(async () => {
         }
     }).slice(0, 4);
 
-    const responseActors = await axios.get('https://localhost:8000/api/actors?page=1');
+    const responseActors = await axios.get('https://localhost:8000/api/actors?page=1', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
     actors.value = responseActors.data['hydra:member'].map((actor: any) => {
         return {
             id: actor.id,
@@ -36,8 +46,7 @@ onMounted(async () => {
 
 <template>
     <div class="container-home">
-        <h1>Home</h1>
-        <p>Page d'accueil</p>
+        <h1>Accueil</h1>
 
         <div class="container-list-movies">
             <h2>Films du moment</h2>
