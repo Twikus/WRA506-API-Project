@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref } from 'vue'
-import axios from 'axios';
-import { useRoute } from 'vue-router';
+import axios from 'axios'
+import { useRoute } from 'vue-router'
 
 const movie = ref()
 
-const $route = useRoute();
-const id = $route.params.id;
+const $route = useRoute()
+const id = $route.params.id
 
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('token')
 
 onBeforeMount(() => {
     if (!token) {
@@ -21,18 +21,14 @@ onMounted(async () => {
         headers: {
             Authorization: `Bearer ${token}`
         }
-    });
-    movie.value = response.data;
+    })
+    movie.value = response.data
 
 })
 
 function formatDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(date).toLocaleDateString('fr-FR', options);
-}
-
-const updateMovie = () => {
-    
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    return new Date(date).toLocaleDateString('fr-FR', options)
 }
 </script>
 

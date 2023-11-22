@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onBeforeMount, ref, computed } from 'vue'
 import axios from 'axios';
-import CategoryCard from '../components/CategoryCard.vue';
+import CategoryCard from '../../components/CategoryCard.vue';
 
 const categories = ref([]);
 const search = ref('');

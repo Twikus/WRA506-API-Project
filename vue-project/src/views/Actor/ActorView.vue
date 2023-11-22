@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onBeforeMount, ref, computed } from 'vue'
 import axios from 'axios';
-import ActorCard from '../components/ActorCard.vue';
+import ActorCard from '../../components/ActorCard.vue';
 
 const actors = ref([]);
 const search = ref('');
