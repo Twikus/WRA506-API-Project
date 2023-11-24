@@ -25,7 +25,10 @@ onMounted(async () => {
     category.value = response.data;
 
 })
-    ;
+
+const openUpdate = () => {
+    location.href = `/category/${id}/update`
+}
 </script>
 
 <template>
@@ -39,6 +42,7 @@ onMounted(async () => {
                 </li>
             </ul></p>
         </div>
+        <button @click="openUpdate">Modifier</button>
     </div>
 </template>
 

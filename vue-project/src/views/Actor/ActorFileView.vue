@@ -23,9 +23,11 @@ onMounted(async () => {
         }
     });
     actor.value = response.data;
-
 })
-    ;
+
+const openUpdate = () => {
+    location.href = `/actor/${id}/update`
+}
 </script>
 
 <template>
@@ -40,5 +42,6 @@ onMounted(async () => {
                 </li>
             </ul></p>
         </div>
+        <button @click="openUpdate">Modifier</button>
     </div>
 </template>
