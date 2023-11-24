@@ -7,8 +7,7 @@ const actors = ref([]);
 const search = ref('');
 
 const currentPage = ref(1);
-const totalPages = ref(0);
-const itemsPerPage = 30;
+const totalPages = ref(1);
 
 const token = localStorage.getItem('token');
 
@@ -22,32 +21,45 @@ onMounted(async () => {
     await fetchActors(currentPage.value);
 })
 
-const fetchActors = async (page) => {
-    const response = await axios.get(`https://localhost:8000/api/actors?page=${page}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    actors.value = response.data['hydra:member'];
+const fetchActors = async (page: number) => {
+    try {
+        const response = await axios.get(`https://localhost:8000/api/actors?page=${page}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
 
-    // Pagination
-    const totalCount = response.data['hydra:totalItems'];
-    totalPages.value = Math.ceil(totalCount / itemsPerPage);
-    currentPage.value = page;
+        actors.value = response.data['hydra:member'];
+
+        // Extract total pages information from hydra:view
+        const hydraView = response.data['hydra:view'];
+        if (hydraView) {
+            totalPages.value = extractTotalPages(hydraView);
+        }
+    } catch (error) {
+        console.error('Error fetching actors:', error);
+    }
+}
+
+const extractTotalPages = (hydraView) => {
+    const lastPageUrl = hydraView['hydra:last'];
+    if (!lastPageUrl) {
+        return 1;
+    }
+
+    // Extract the page number from the last page URL
+    const match = lastPageUrl.match(/page=(\d+)$/);
+    return match ? parseInt(match[1]) : 1;
 }
 
 const nextPage = () => {
-    if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-        fetchActors(currentPage.value);
-    }
+    currentPage.value++;
+    fetchActors(currentPage.value);
 }
 
 const previousPage = () => {
-    if (currentPage.value > 1) {
-        currentPage.value--;
-        fetchActors(currentPage.value);
-    }
+    currentPage.value--;
+    fetchActors(currentPage.value);
 }
 
 const actorsFiltered = computed(() => {
