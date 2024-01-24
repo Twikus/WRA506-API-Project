@@ -36,6 +36,7 @@ const openUpdate = () => {
         <div v-if="actor">
             <p>Prénom: {{ actor.firstName }}</p>
             <p>Nom: {{ actor.lastName }}</p>
+            <p>Nationalité: {{ actor.nationality.title }}</p>
             <p>Films: <ul>
                 <li v-for="movie in actor.movies" :key="movie.id">
                     <RouterLink :to="{ name: 'movie-file', params: { id: movie.id } }">{{ movie.title }}</RouterLink>
