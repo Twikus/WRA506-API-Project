@@ -18,6 +18,7 @@ const logout = () => {
         <RouterLink to="/actor" v-if="token">Acteurs</RouterLink>
         <RouterLink to="/category" v-if="token">Categories</RouterLink>
         <RouterLink to="/login" v-if="!token">Connexion</RouterLink>
+        <RouterLink to="/register" v-if="!token">S'inscrire</RouterLink>
         <a data-v-7a7a37b1 @click="logout" v-if="token">Déconnexion</a>
       </nav>
     </header>
