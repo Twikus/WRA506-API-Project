@@ -30,12 +30,15 @@ function formatDate(date) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' }
     return new Date(date).toLocaleDateString('fr-FR', options)
 }
+
+const openUpdate = () => {
+        location.href = `/movie/${id}/update`
+    }
 </script>
 
 <template>
     <div>
         <h1>Fiche du Film</h1>
-        <button @click="updateMovie">Modifier</button><br><br>
         <div class="container-movie" v-if="movie">
             <p>Catégorie:  <RouterLink :to="{ name: 'category-file', params: { id: movie.category.id } }">{{ movie.category.name }}</RouterLink></p>
             <br>
@@ -50,5 +53,6 @@ function formatDate(date) {
                 </li>
             </ul></p>
         </div>
+        <button @click="openUpdate">Modifier</button><br><br>
     </div>
 </template>

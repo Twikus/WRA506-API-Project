@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import MovieView from '../views/Movie/MovieView.vue'
 import MovieFileView from '../views/Movie/MovieFileView.vue'
+import MovieUpdateView from '../views/Movie/CRUD/MovieUpdateView.vue'
 import ActorView from '../views/Actor/ActorView.vue'
 import ActorFileView from '../views/Actor/ActorFileView.vue'
 import ActorUpdateView from '../views/Actor/CRUD/ActorUpdateView.vue'
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/movie/:id',
       name: 'movie-file',
       component: MovieFileView
+    },
+    {
+      path: '/movie/:id/update',
+      name: 'movie-update',
+      component: MovieUpdateView
     },
     {
       path: '/actor',
