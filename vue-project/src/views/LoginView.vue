@@ -5,11 +5,13 @@ import axios from 'axios';
 
 const email = ref('')
 const password = ref('')
-const router = useRouter()
 
 const login = async () => {
     try {
         const response = await axios.post('https://127.0.0.1:8000/login', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
             email: email.value,
             password: password.value
         })
@@ -27,6 +29,7 @@ const login = async () => {
 
 <template>
     <div>
+        <h1>Se connecter</h1>
         <!-- Formulaire de connexion -->
         <form @submit.prevent="login">
             <div>
