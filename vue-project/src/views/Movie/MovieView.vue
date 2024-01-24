@@ -26,7 +26,8 @@ const fetchMovies = async (page: number) => {
         // Utilisez le paramètre de recherche dans la requête API
         const response = await axios.get(`https://localhost:8000/api/movies?page=${page}&title=${search.value}`, {
             headers: {
-                Authorization: `Bearer ${token}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
 
