@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeMount, ref, computed } from 'vue'
+import { onMounted, onBeforeMount, ref } from 'vue'
 import axios from 'axios';
 import CategoryCard from '../../components/CategoryCard.vue';
 
@@ -23,9 +23,10 @@ onMounted(async () => {
 
 const fetchCategories = async (page: number) => {
     try {
-        const response = await axios.get(`https://localhost:8000/api/categories?page=${page}`, {
+        const response = await axios.get(`https://localhost:8000/api/categories?page=${page}&name=${search.value}`, {
             headers: {
-                Authorization: `Bearer ${token}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
 
@@ -62,25 +63,26 @@ const previousPage = () => {
     fetchCategories(currentPage.value);
 }
 
-const categoriesFiltered = computed(() => {
-    return categories.value.filter((categories) => {
-        return categories.name.toLowerCase().includes(search.value.toLowerCase());
-    });
-})
+const searchCategories = () => {
+    console.log('Recherche de catégories avec le terme :', search.value);
+    currentPage.value = 1;
+    fetchCategories(currentPage.value);
+}
 </script>
 
 <template>
     <div class="container-list-categories">
         <h1>Liste des Catégories</h1>
-        <input type="text" class="searchbar" v-model="search">
+        <input type="text" class="searchbar" v-model="search" placeholder="Rechercher par titre">
+        <button @click="searchCategories">Rechercher</button>
+        <div class="container-categories">
+            <div v-if="!categories">Chargement en cours...</div>
+            <CategoryCard v-else v-for="category in categories" :key="category.id" :category="category" class="category"/>
+        </div>
         <div class="pagination">
             <button @click="previousPage" :disabled="currentPage <= 1">Précédent</button>
             <span>{{ currentPage }} / {{ totalPages }}</span>
             <button @click="nextPage" :disabled="currentPage >= totalPages">Suivant</button>
-        </div>
-        <div class="container-categories">
-            <div v-if="!categories">Chargement en cours...</div>
-            <CategoryCard v-else v-for="category in categoriesFiltered" :key="category.id" :category="category" class="category"/>
         </div>
     </div>
 </template>

@@ -41,11 +41,10 @@ const saveUpdate = () => {
             }
         })
         console.log('categorie updated', details.value)
+
+        location.href = `/category/${id}`
     } catch (error) {
         console.error(error)
-    } finally {
-        location.href = `/category/${id}`
-    
     }
 }
 </script>
@@ -54,8 +53,8 @@ const saveUpdate = () => {
     <div>
         <h1>Fiche de la categorie</h1>
         <div v-if="categorie">
-            <label for="fname"></label>
-            <input type="text" id="fname" name="fname" v-model="details.name"><br>
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" v-model="details.name"><br>
         </div>
         <button @click="saveUpdate">Sauvegarder</button>
     </div>

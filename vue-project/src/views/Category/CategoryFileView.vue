@@ -16,14 +16,33 @@ onBeforeMount(() => {
     }
 })
 
-onMounted(async () => {
-    const response = await axios.get(`https://localhost:8000/api/categories/${id}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    category.value = response.data;
+const fetchMovieDetails = async (movieIri) => {
+    try {
+        const response = await axios.get(`https://localhost:8000${movieIri}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Failed to fetch movie details:', error)
+    }
+}
 
+onMounted(async () => {
+    try {
+        const response = await axios.get(`https://localhost:8000/api/categories/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        category.value = response.data;
+
+        // Fetch movie details
+        category.value.movies = await Promise.all(category.value.movies.map(fetchMovieDetails));
+    } catch (error) {
+        console.error('Failed to fetch category:', error)
+    }
 })
 
 const openUpdate = () => {
@@ -36,11 +55,13 @@ const openUpdate = () => {
         <h1>Fiche de la catégorie</h1>
         <div class="container-movie" v-if="category">
             <p>Nom: {{ category.name }}</p>
-            <p>Films: <ul>
-                <li v-for="film in category.movies" :key="film.id">
-                    <RouterLink :to="{ name: 'movie-file', params: { id: film.id } }">{{ film.title }}</RouterLink>
-                </li>
-            </ul></p>
+            <p>Films: 
+                <ul>
+                    <li v-for="film in category.movies" :key="film.id">
+                        <RouterLink :to="{ name: 'movie-file', params: { id: film.id } }">{{ film.title }}</RouterLink>
+                    </li>
+                </ul>
+            </p>
         </div>
         <button @click="openUpdate">Modifier</button>
     </div>
