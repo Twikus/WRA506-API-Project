@@ -58,7 +58,7 @@ onMounted(async () => {
         </div>
 
         <div class="container-list-actors">
-            <h1>Liste des Acteurs</h1>
+            <h2>Acteurs du moment</h2>
             <div class="container-actors">
                 <div v-if="!actors">Chargement en cours...</div>
                 <ActorCard v-else v-for="actor in actors" :key="actor.id" :actor="actor" class="actor" />
