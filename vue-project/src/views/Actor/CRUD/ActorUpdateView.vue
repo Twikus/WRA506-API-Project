@@ -67,7 +67,6 @@ const saveUpdate = async () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log('Actor updated', actorDetails.value)
 
         location.href = `/actor/${id}`
     } catch (error) {

@@ -15,6 +15,7 @@ onMounted(async () => {
             Authorization: `Bearer ${token}`
         }
     });
+
     movies.value = responseMovies.data['hydra:member'].map((movie: any) => {
         return {
             id: movie.id,
@@ -24,7 +25,7 @@ onMounted(async () => {
             duration: movie.duration,
             category: movie.category,
             actors: movie.actors,
-            image: movie.image,
+            mediaObjects: movie.mediaObjects[0],
         }
     }).slice(0, 4);
 

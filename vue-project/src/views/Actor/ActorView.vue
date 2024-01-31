@@ -64,7 +64,6 @@ const previousPage = () => {
 }
 
 const searchActors = () => {
-    console.log('Recherche d\'acteurs avec le terme :', search.value);
     currentPage.value = 1;
     fetchActors(currentPage.value);
 }

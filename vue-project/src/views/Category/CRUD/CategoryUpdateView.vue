@@ -40,7 +40,6 @@ const saveUpdate = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log('categorie updated', details.value)
 
         location.href = `/category/${id}`
     } catch (error) {

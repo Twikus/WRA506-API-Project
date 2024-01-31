@@ -78,13 +78,50 @@ const saveUpdate = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log('movie updated', details.value)
 
         location.href = `/movie/${id}`
     } catch (error) {
         console.error(error)
     }
 }
+
+
+
+const uploadImage = () => {
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    const file = fileInput.files ? fileInput.files[0] : null;
+    
+    if (!file) {
+      console.log("Veuillez sélectionner une image");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file", file);
+
+    // ajout de l'id du film dans le formData
+    formData.append("movie", JSON.stringify({ "@id": `/api/movies/${id}` }));
+
+    // Appel de la fonction pour envoyer le media à l'API
+    uploadToApi(formData);
+}
+
+const uploadToApi = async (formData) => {
+      try {
+        // Récupérer le JWT depuis le local storage
+        const token = localStorage.getItem("token");
+
+        // Utilisation d'Axios pour envoyer l'image à l'API avec le JWT
+        const response = await axios.post("https://127.0.0.1:8000/api/media_objects", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+      } catch (error) {
+        console.error("Erreur lors de l'envoi de l'image :", error);
+      }
+    }
 </script>
 
 <template>
@@ -115,6 +152,10 @@ const saveUpdate = () => {
             <input type="date" name="date" id="date" v-model="details.releaseDate"><br>
             <label for="website">Site web</label>
             <input type="text" id="website" name="website" v-model="details.website"><br>
+            <form @submit.prevent="uploadImage">
+              <input type="file" ref="fileInput" />
+              <button type="submit">Envoyer</button>
+            </form>
         </div>
         <button @click="saveUpdate">Sauvegarder</button>
     </div>

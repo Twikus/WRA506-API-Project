@@ -64,7 +64,6 @@ const previousPage = () => {
 }
 
 const searchCategories = () => {
-    console.log('Recherche de catégories avec le terme :', search.value);
     currentPage.value = 1;
     fetchCategories(currentPage.value);
 }
