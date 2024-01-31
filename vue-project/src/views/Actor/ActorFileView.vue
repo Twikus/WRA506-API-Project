@@ -1,0 +1,48 @@
+<script setup lang="ts">
+import { onBeforeMount, onMounted, ref } from 'vue'
+import axios from 'axios';
+import { useRoute } from 'vue-router';
+
+const actor = ref()
+
+const $route = useRoute();
+const id = $route.params.id;
+
+const token = localStorage.getItem('token');
+
+onBeforeMount(() => {
+    if (!token) {
+        location.href = '/login'
+    }
+})
+
+onMounted(async () => {
+    const response = await axios.get(`https://localhost:8000/api/actors/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    actor.value = response.data;
+})
+
+const openUpdate = () => {
+    location.href = `/actor/${id}/update`
+}
+</script>
+
+<template>
+    <div>
+        <h1>Fiche de l'acteur</h1>
+        <div v-if="actor">
+            <p>Prénom: {{ actor.firstName }}</p>
+            <p>Nom: {{ actor.lastName }}</p>
+            <p>Nationalité: {{ actor.nationality.title }}</p>
+            <p>Films: <ul>
+                <li v-for="movie in actor.movies" :key="movie.id">
+                    <RouterLink :to="{ name: 'movie-file', params: { id: movie.id } }">{{ movie.title }}</RouterLink>
+                </li>
+            </ul></p>
+        </div>
+        <button @click="openUpdate">Modifier</button>
+    </div>
+</template>
