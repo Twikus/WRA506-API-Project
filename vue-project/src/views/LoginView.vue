@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import axios from 'axios';
+import getMe from '../script/me';
 
 const email = ref('')
 const password = ref('')
+const me = ref({})
 
 const login = async () => {
     try {
@@ -17,6 +18,7 @@ const login = async () => {
         })
 
         const token = response.data.token
+        me.value = await getMe(token)
 
         localStorage.setItem('token', token)
         location.href = '/'

@@ -71,9 +71,9 @@ onMounted(async () => {
     }
 })
 
-const saveUpdate = () => {
+const saveUpdate = async () => {
     try {
-        axios.put(`https://127.0.0.1:8000/api/movies/${id}`, details.value, {
+        const response = await axios.put(`https://127.0.0.1:8000/api/movies/${id}`, details.value, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
