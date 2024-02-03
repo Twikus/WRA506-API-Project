@@ -25,7 +25,7 @@ onMounted(async () => {
             duration: movie.duration,
             category: movie.category,
             actors: movie.actors,
-            mediaObjects: movie.mediaObjects[0],
+            mediaObjects: movie.mediaObjects,
         }
     }).slice(0, 4);
 
