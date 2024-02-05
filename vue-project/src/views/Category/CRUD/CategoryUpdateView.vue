@@ -21,7 +21,7 @@ onBeforeMount(() => {
 })
 
 onMounted(async () => {
-    const response = await axios.get(`https://127.0.0.1:8000/api/categories/${id}`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -35,7 +35,7 @@ onMounted(async () => {
 
 const saveUpdate = () => {
     try {
-        axios.put(`https://127.0.0.1:8000/api/categories/${id}`, details.value, {
+        axios.put(`${import.meta.env.VITE_API_URL}/categories/${id}`, details.value, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

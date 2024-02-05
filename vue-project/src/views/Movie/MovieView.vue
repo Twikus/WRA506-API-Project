@@ -29,14 +29,14 @@ const fetchMovies = async (page: number) => {
 
     try {
         // Utilisez le paramètre de recherche dans la requête API
-        const response = await axios.get(`https://localhost:8000/api/movies?page=${page}&title=${search.value}&category.id=${category.value}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/movies?page=${page}&title=${search.value}&category.id=${category.value}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         });
 
-        console.log(`https://localhost:8000/api/movies?page=${page}&title=${search.value}&category=${category.value}`);
+        console.log(`${import.meta.env.VITE_API_URL}/movies?page=${page}&title=${search.value}&category=${category.value}`);
 
         movies.value = response.data['hydra:member'];
 
@@ -54,7 +54,7 @@ const fetchMovies = async (page: number) => {
 
 const fetchCategories = async () => {
     try {
-        const response = await axios.get('https://localhost:8000/api/categories', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

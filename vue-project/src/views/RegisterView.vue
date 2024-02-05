@@ -10,7 +10,7 @@ const password = ref('');
 const role = ref('ROLE_USER');
 const register = async () => {
     try {
-        const response = await axios.post('https://localhost:8000/register', { 
+        const response = await axios.post(`${import.meta.env.VITE_APP_URL}/register`, { 
             firstname: firstname.value,
             lastname: lastname.value,
             email: email.value,

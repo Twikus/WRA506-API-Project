@@ -10,7 +10,7 @@ const actors = ref([]);
 const token = localStorage.getItem('token');
 
 onMounted(async () => {
-    const responseMovies = await axios.get('https://localhost:8000/api/movies?page=1', {
+    const responseMovies = await axios.get(`${import.meta.env.VITE_API_URL}/movies?page=1`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -29,7 +29,7 @@ onMounted(async () => {
         }
     }).slice(0, 4);
 
-    const responseActors = await axios.get('https://localhost:8000/api/actors?page=1', {
+    const responseActors = await axios.get(`${import.meta.env.VITE_API_URL}/actors?page=1`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

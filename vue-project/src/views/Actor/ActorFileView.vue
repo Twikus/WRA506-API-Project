@@ -17,7 +17,7 @@ onBeforeMount(() => {
 })
 
 onMounted(async () => {
-    const response = await axios.get(`https://localhost:8000/api/actors/${id}`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/actors/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

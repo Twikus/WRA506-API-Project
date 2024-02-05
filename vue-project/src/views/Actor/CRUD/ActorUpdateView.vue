@@ -3,8 +3,8 @@ import { onBeforeMount, onMounted, ref } from 'vue'
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 
-const ACTORS_API = 'https://127.0.0.1:8000/api/actors';
-const NATIONALITIES_API = 'https://127.0.0.1:8000/api/nationalities';
+const ACTORS_API = `${import.meta.env.VITE_API_URL}/actors`;
+const NATIONALITIES_API = `${import.meta.env.VITE_API_URL}/nationalities`;
 
 const actor = ref()
 const actorDetails = ref({
