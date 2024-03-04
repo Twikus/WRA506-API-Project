@@ -33,19 +33,23 @@ onMounted(async () => {
     }
 })
 
-const saveUpdate = () => {
-    try {
-        axios.put(`${import.meta.env.VITE_API_URL}/categories/${id}`, details.value, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
+const saveUpdate = async () => {
+        try {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/categories/${id}`, details.value, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
 
-        location.href = `/category/${id}`
-    } catch (error) {
-        console.error(error)
+            if (response.status === 200) {
+                location.href = `/category/${id}`
+            } else {
+                console.error('Erreur lors de la mise à jour de la catégorie')
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
-}
 </script>
 
 <template>
