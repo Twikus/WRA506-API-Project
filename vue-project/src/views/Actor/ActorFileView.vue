@@ -40,7 +40,7 @@ const deleteActor = async () => {
                 Authorization: `Bearer ${token}`
             }
         });
-        fetchMovie(id);
+        fetchActor(id);
     } catch (error) {
         console.error(error);
     }
