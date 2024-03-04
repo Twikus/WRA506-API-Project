@@ -16,9 +16,9 @@ onBeforeMount(() => {
     }
 })
 
-const fetchMovieDetails = async (movieIri) => {
+const fetchMovieDetails = async (movieIri: string) => {
     try {
-        const response = await axios.get(`https://localhost:8000${movieIri}`, {
+        const response = await axios.get(`${import.meta.env.VITE_APP_URL}${movieIri}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -31,7 +31,7 @@ const fetchMovieDetails = async (movieIri) => {
 
 onMounted(async () => {
     try {
-        const response = await axios.get(`https://localhost:8000/api/categories/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

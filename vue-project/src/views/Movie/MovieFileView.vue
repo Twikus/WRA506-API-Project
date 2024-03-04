@@ -5,6 +5,8 @@ import { useRoute } from 'vue-router'
 
 const movie = ref()
 
+const appUrl = import.meta.env.VITE_APP_URL
+
 const $route = useRoute()
 const id = $route.params.id
 
@@ -17,7 +19,7 @@ onBeforeMount(() => {
 })
 
 onMounted(async () => {
-    const response = await axios.get(`https://localhost:8000/api/movies/${id}`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -41,7 +43,7 @@ const openUpdate = () => {
         <div class="container-movie" v-if="movie">
             <p>Catégorie:  <RouterLink :to="{ name: 'category-file', params: { id: movie.category.id } }">{{ movie.category.name }}</RouterLink></p>
             <br>
-            <img :src="'https://127.0.0.1:8000/' + movie.mediaObjects[0].contentUrl.replace('/public', '')" :alt="movie.title" v-if="movie.mediaObjects?.length">
+            <img :src="`${appUrl + movie.mediaObjects[0].contentUrl.replace('/public', '')}`" :alt="movie.title" v-if="movie.mediaObjects?.length">
             <img src="https://via.placeholder.com/300x300.png?text=No+image" :alt="movie.title" v-else>
             <p>Titre: {{ movie.title }}</p>
             <p>Description: {{ movie.description }}</p>

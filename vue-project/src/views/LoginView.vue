@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import axios from 'axios';
+import getMe from '../script/me';
 
 const email = ref('')
 const password = ref('')
+const me = ref({})
 
 const login = async () => {
     try {
-        const response = await axios.post('https://127.0.0.1:8000/login', {
+        const response = await axios.post(`${import.meta.env.VITE_APP_URL}/login`, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -17,6 +18,7 @@ const login = async () => {
         })
 
         const token = response.data.token
+        me.value = await getMe(token)
 
         localStorage.setItem('token', token)
         location.href = '/'

@@ -23,7 +23,7 @@ onMounted(async () => {
 
 const fetchCategories = async (page: number) => {
     try {
-        const response = await axios.get(`https://localhost:8000/api/categories?page=${page}&name=${search.value}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories?page=${page}&name=${search.value}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

@@ -8,6 +8,8 @@ const props = defineProps({
     },
 });
 
+const appUrl = import.meta.env.VITE_APP_URL;
+
 function formatDate(date) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(date).toLocaleDateString('fr-FR', options);
@@ -17,7 +19,7 @@ function formatDate(date) {
 <template>
     <div>
         <p>{{ props.movie.title }}</p>
-        <img :src="'https://127.0.0.1:8000/' + props.movie.mediaObjects[0].contentUrl.replace('/public', '')" :alt="props.movie.title" v-if="props.movie.mediaObjects?.length">
+        <img :src="`${appUrl + props.movie.mediaObjects[0].contentUrl.replace('/public', '')}`" :alt="props.movie.title" v-if="props.movie.mediaObjects?.length">
         <img src="https://via.placeholder.com/300x300.png?text=No+image" :alt="props.movie.title" v-else>
         <p>{{ props.movie.description }}</p>
         <p>{{ formatDate(props.movie.releaseDate) }}</p>

@@ -40,7 +40,7 @@ onBeforeMount(() => {
 })
 
 onMounted(async () => {
-    const response = await axios.get(`https://127.0.0.1:8000/api/movies/${id}`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -59,7 +59,7 @@ onMounted(async () => {
     details.value.website = movie.value.website;
 
     try {
-        const categoriesResponse = await axios.get(`https://127.0.0.1:8000/api/categories`, {
+        const categoriesResponse = await axios.get(`${import.meta.env.VITE_API_URL}/categories`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -71,9 +71,9 @@ onMounted(async () => {
     }
 })
 
-const saveUpdate = () => {
+const saveUpdate = async () => {
     try {
-        axios.put(`https://127.0.0.1:8000/api/movies/${id}`, details.value, {
+        const response = await axios.put(`${import.meta.env.VITE_API_URL}/movies/${id}`, details.value, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -111,7 +111,7 @@ const uploadToApi = async (formData) => {
         const token = localStorage.getItem("token");
 
         // Utilisation d'Axios pour envoyer l'image à l'API avec le JWT
-        const response = await axios.post("https://127.0.0.1:8000/api/media_objects", formData, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/media_objects`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
