@@ -17,16 +17,33 @@ onBeforeMount(() => {
 })
 
 onMounted(async () => {
+    fetchActor(id)
+})
+
+async function fetchActor(id: number) {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/actors/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
     actor.value = response.data;
-})
+}
 
 const openUpdate = () => {
     location.href = `/actor/${id}/update`
+}
+
+const deleteActor = async () => {
+    try {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        fetchMovie(id);
+    } catch (error) {
+        console.error(error);
+    }
 }
 </script>
 
@@ -43,6 +60,7 @@ const openUpdate = () => {
                 </li>
             </ul></p>
         </div>
-        <button @click="openUpdate">Modifier</button>
+        <button @click="openUpdate">Modifier</button><br>
+        <button @click="deleteActor">Supprimer</button><br><br>
     </div>
 </template>

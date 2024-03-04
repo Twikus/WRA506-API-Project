@@ -30,6 +30,10 @@ const fetchMovieDetails = async (movieIri: string) => {
 }
 
 onMounted(async () => {
+    fetchCategory(id)
+})
+
+async function fetchCategory(id: number) {
     try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories/${id}`, {
             headers: {
@@ -43,11 +47,24 @@ onMounted(async () => {
     } catch (error) {
         console.error('Failed to fetch category:', error)
     }
-})
+}
 
 const openUpdate = () => {
     location.href = `/category/${id}/update`
 }
+
+const deleteCategory = async () => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/category/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            fetchCategory(id);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 </script>
 
 <template>
@@ -63,7 +80,8 @@ const openUpdate = () => {
                 </ul>
             </p>
         </div>
-        <button @click="openUpdate">Modifier</button>
+        <button @click="openUpdate">Modifier</button><br>
+        <button @click="deleteCategory">Supprimer</button><br><br>
     </div>
 </template>
 

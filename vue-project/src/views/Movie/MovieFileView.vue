@@ -19,13 +19,17 @@ onBeforeMount(() => {
 })
 
 onMounted(async () => {
+    fetchMovie(id)
+})
+
+async function fetchMovie(id: number) {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     })
     movie.value = response.data
-})
+}
 
 function formatDate(date) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -33,8 +37,21 @@ function formatDate(date) {
 }
 
 const openUpdate = () => {
-        location.href = `/movie/${id}/update`
+    location.href = `/movie/${id}/update`
+}
+
+const deleteMovie = async () => {
+    try {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        fetchMovie(id);
+    } catch (error) {
+        console.error(error);
     }
+}
 </script>
 
 <template>
@@ -56,7 +73,8 @@ const openUpdate = () => {
                 </li>
             </ul></p>
         </div>
-        <button @click="openUpdate">Modifier</button><br><br>
+        <button @click="openUpdate">Modifier</button><br>
+        <button @click="deleteMovie">Supprimer</button><br><br>
     </div>
 </template>
 
