@@ -49,7 +49,7 @@ const deleteMovie = async () => {
         });
     
         if (response.status === 204) {
-            location.href = '/movies'
+            location.href = '/movie'
         }
     } catch (error) {
         console.error(error);

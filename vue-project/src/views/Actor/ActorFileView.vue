@@ -42,7 +42,7 @@ const deleteActor = async () => {
         });
         
         if (response.status === 204) {
-            location.href = '/actors'
+            location.href = '/actor'
         }
     } catch (error) {
         console.error(error);

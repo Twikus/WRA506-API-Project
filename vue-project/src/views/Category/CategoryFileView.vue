@@ -61,7 +61,7 @@ const deleteCategory = async () => {
                 }
             });
             if (response.status === 204) {
-                location.href = '/categories'
+                location.href = '/category'
             }
         } catch (error) {
             console.error(error);
