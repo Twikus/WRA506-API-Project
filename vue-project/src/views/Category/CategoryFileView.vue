@@ -60,7 +60,9 @@ const deleteCategory = async () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            fetchCategory(id);
+            if (response.status === 204) {
+                location.href = '/categories'
+            }
         } catch (error) {
             console.error(error);
         }

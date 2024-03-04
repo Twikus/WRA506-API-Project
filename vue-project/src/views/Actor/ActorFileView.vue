@@ -40,7 +40,10 @@ const deleteActor = async () => {
                 Authorization: `Bearer ${token}`
             }
         });
-        fetchActor(id);
+        
+        if (response.status === 204) {
+            location.href = '/actors'
+        }
     } catch (error) {
         console.error(error);
     }

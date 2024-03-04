@@ -47,7 +47,10 @@ const deleteMovie = async () => {
                 Authorization: `Bearer ${token}`
             }
         });
-        fetchMovie(id);
+        
+        if (response.status === 204) {
+            location.href = '/movies'
+        }
     } catch (error) {
         console.error(error);
     }
