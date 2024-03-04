@@ -49,20 +49,26 @@ onMounted(async () => {
     <div class="container-home">
         <h1>Accueil</h1>
 
-        <div class="container-list-movies">
-            <h2>Films du moment</h2>
-            <div class="container-movies">
-                <div v-if="!movies">Chargement en cours...</div>
-                <MovieCard v-else v-for="movie in movies" :key="movie.id" :movie="movie" class="movie"/>
+        <div v-if="token">
+            <div class="container-list-movies">
+                <h2>Films du moment</h2>
+                <div class="container-movies">
+                    <div v-if="!movies">Chargement en cours...</div>
+                    <MovieCard v-else v-for="movie in movies" :key="movie.id" :movie="movie" class="movie"/>
+                </div>
+            </div>
+    
+            <div class="container-list-actors">
+                <h2>Acteurs du moment</h2>
+                <div class="container-actors">
+                    <div v-if="!actors">Chargement en cours...</div>
+                    <ActorCard v-else v-for="actor in actors" :key="actor.id" :actor="actor" class="actor" />
+                </div>
             </div>
         </div>
 
-        <div class="container-list-actors">
-            <h2>Acteurs du moment</h2>
-            <div class="container-actors">
-                <div v-if="!actors">Chargement en cours...</div>
-                <ActorCard v-else v-for="actor in actors" :key="actor.id" :actor="actor" class="actor" />
-            </div>
+        <div v-else>
+            <h2>La page accueil est accessible pour les membres connectés.</h2>
         </div>
     </div>
 </template>
