@@ -55,7 +55,7 @@ const openUpdate = () => {
 
 const deleteCategory = async () => {
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/category/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/categories/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
