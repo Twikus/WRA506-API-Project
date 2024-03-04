@@ -42,12 +42,12 @@ const openUpdate = () => {
 
 const deleteMovie = async () => {
     try {
-        await axios.delete(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-        
+    
         if (response.status === 204) {
             location.href = '/movies'
         }

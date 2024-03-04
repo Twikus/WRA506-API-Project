@@ -35,7 +35,7 @@ const openUpdate = () => {
 
 const deleteActor = async () => {
     try {
-        await axios.delete(`${import.meta.env.VITE_API_URL}/actors/${id}`, {
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/actors/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
